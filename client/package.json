@@ -40,7 +40,7 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:8800/api",
+  "proxy": "https://njitcssocialnetwork.herokuapp.com/api",
   "main": "index.js",
   "license": "MIT"
 }
