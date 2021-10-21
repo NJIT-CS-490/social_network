@@ -1,4 +1,4 @@
-import {axiosInstance} from "config.js";
+import {axiosInstance} from "./config.js";
 
 export const loginCall = async (userCredentials,dispatch)=>{
     dispatch({ type:"LOGIN_START" });
