@@ -11,6 +11,8 @@ export default function Post({ post }) {
     const [like, setLike] = useState(post.likes.length);    
     const [isLiked, setIsLiked] = useState(false);
     const [user, setUser] = useState({});
+    const [comments, setComments] = useState([]);
+    const [commentText, setCommentText] = useState('');
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const {user:currentUser} = useContext(AuthContext);
 
@@ -27,6 +29,11 @@ export default function Post({ post }) {
     fetchUser();
     }, [post.userId]);
 
+    useEffect(async ()=> {
+        const res = await axiosInstance.get("/posts/"+post._id+"/comments")
+        setCommentText(res.data)
+    }, [comments])
+
     const likeHandler = ()=>{
         try{
             axiosInstance.put("/posts/"+post._id+"/like",{ userId:currentUser._id })
@@ -34,6 +41,12 @@ export default function Post({ post }) {
         catch(err){}
         setLike(isLiked ? like-1 : like+1);
         setIsLiked(!isLiked);
+    }
+
+    const commentHandler = () => {
+        try {
+            axiosInstance.post("/posts/"+post._id+"/comment",{ userId:currentUser._id, text: commentText})
+        } catch(err){}
     }
 
 
@@ -85,6 +98,11 @@ export default function Post({ post }) {
                         </span>
                     </div>
                 </div>
+                <div className="commentWrapper">
+                    <input placeholder="Comment" onChange={(event) => { setCommentText(event.target.value); }}></input>
+                    <button onClick={() => commentHandler() }>Send</button>
+                </div>
+                {comments.map((item, indx) => <p>{JSON.stringify(item)}</p>)}
             </div>
         </div>
     )
