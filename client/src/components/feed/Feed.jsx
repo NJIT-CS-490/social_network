@@ -31,7 +31,8 @@ export default function Feed( {username} ) {
             <div className="feedWrapper">
                 {(!username || username === user.username) && <Share />}
                 {posts.map(p=>(
-                    <Post key={p._id} post={p} />
+                    !p.isBlocked && !user.isAdmin && <Post key={p._id} post={p} /> ||
+                    user.isAdmin && <Post key={p._id} post={p} />
                 ))}
             </div>
         </div>

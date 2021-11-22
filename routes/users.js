@@ -144,4 +144,23 @@ router.put("/:id/unfollow", async (req, res) => {
   }
 });
 
+//block
+router.put("/:id/block", async (req, res) => {
+  if (req.body.userId !== req.params.id) {
+    try {
+      const user = await User.findById(req.params.id);
+      if (user.followers.includes(req.body.userId) || req.body.isAdmin) {
+        user.blockedUser.push(req.body.userId)
+        res.status(200).json("user has been blocked");
+      } else {
+        res.status(403).json("you dont follow this user");
+      }
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  } else {
+    res.status(403).json("you cant block yourself");
+  }
+});
+
 module.exports = router
