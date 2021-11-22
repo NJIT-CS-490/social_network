@@ -8,17 +8,18 @@ export default function Topbar() {
 
     const {user, dispatch} = useContext(AuthContext);
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
-    
+    const userAdmin = user.isAdmin
 
     const handleLogout = () => {
         dispatch({ type: "LOGOUT" });
     };
 
     return (
-        <div className="topbarContainer">
+        <div className={userAdmin ? "topbarContainerAdmin" : "topbarContainer"}>
             <div className="topbarLeft">
                 <Link to="/" style={{textDecoration:"none"}}>
-                    <span className="logo">CS 490 Project</span>
+                    {userAdmin ? <span className="logo">CS 490 Project Administrator</span> 
+                    : <span className="logo">CS 490 Project</span>}
                 </Link>
             </div>
             <div className="topbarCenter">

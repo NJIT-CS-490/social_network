@@ -33,8 +33,8 @@ export default function Post({ post }) {
 
     useEffect(async ()=> {
         const res = await axiosInstance.get("/posts/"+post._id+"/comments")
-        setCommentText(res.data)
-    }, [comments])
+        setComments(res.data)
+    }, [])
 
     const likeHandler = ()=>{
         try{
@@ -44,7 +44,7 @@ export default function Post({ post }) {
         setLike(isLiked ? like-1 : like+1);
         setIsLiked(!isLiked);
     }
-
+    
     const blockHandler = (id, postId)=>{
         const url = `/posts/${id}/${postId}/block`
         try{
@@ -66,9 +66,11 @@ export default function Post({ post }) {
         catch(err){}
         
     }
-    const commentHandler = () => {
+    const commentHandler = async () => {
         try {
-            axiosInstance.post("/posts/"+post._id+"/comment",{ userId:currentUser._id, text: commentText})
+            await axiosInstance.post("/posts/"+post._id+"/comment",{ userId:currentUser._id, text: commentText})
+            const res = await axiosInstance.get("/posts/"+post._id+"/comments")
+            setComments(res.data)
         } catch(err){}
     }
 
@@ -130,9 +132,16 @@ export default function Post({ post }) {
                 </div>
                 <div className="commentWrapper">
                     <input placeholder="Comment" onChange={(event) => { setCommentText(event.target.value); }}></input>
-                    <button onClick={() => commentHandler() }>Send</button>
+                    <button onClick={async () => await commentHandler() }>Send</button>
                 </div>
-                {comments.map((item, indx) => <p>{JSON.stringify(item)}</p>)}
+                {comments.map(c=> {
+                    return <div>
+                        <div className="commentTop">
+                            <p className="commentText">{c.text}</p>
+                        </div>
+                        <div className="commentBottom">{format(c.createdAt)}</div>
+                    </div>
+                    })}
             </div>
         </div>
     )

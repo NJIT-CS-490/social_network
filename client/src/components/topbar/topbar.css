@@ -9,10 +9,20 @@
     z-index: 999;
 }
 
+.topbarContainerAdmin{
+    height: 50px;
+    width: 100%;
+    background-color: rgb(139, 6, 6);
+    display: flex;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
+
 .topbarLeft{
     flex: 3;
 }
-
 
 .logo{
     font-size: 24px;
