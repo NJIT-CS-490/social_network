@@ -5,6 +5,7 @@ import {axiosInstance} from "../../config.js";
 import { format } from "timeago.js";
 import { Link } from "react-router-dom";
 import { AuthContext } from '../../context/AuthContext';
+import Button from '@material-ui/core/Button';
 
 
 export default function Post({ post }) {
@@ -13,7 +14,7 @@ export default function Post({ post }) {
     const [user, setUser] = useState({});
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const {user:currentUser} = useContext(AuthContext);
-
+    const userAdmin = currentUser.isAdmin;
 
     useEffect(()=>{
         setIsLiked(post.likes.includes(currentUser._id))
@@ -24,6 +25,7 @@ export default function Post({ post }) {
         const res = await axiosInstance.get(`/users?userId=${post.userId}`);
         setUser(res.data)
         };
+
     fetchUser();
     }, [post.userId]);
 
@@ -36,6 +38,27 @@ export default function Post({ post }) {
         setIsLiked(!isLiked);
     }
 
+    const blockHandler = (id, postId)=>{
+        const url = `/posts/${id}/${postId}/block`
+        try{
+            axiosInstance.post(url, (res) => {
+                res.status(200).jason("Post blocked!")
+            })
+        }
+        catch(err){}
+        
+    }
+
+    const unblockHandler = (id, postId)=>{
+        const url = `/posts/${id}/${postId}/unblock`
+        try{
+            axiosInstance.post(url, (res) => {
+                res.status(200).jason("Post unblocked!")
+            })
+        }
+        catch(err){}
+        
+    }
 
     return (
         <div className="post">
@@ -57,7 +80,14 @@ export default function Post({ post }) {
                         </span>
                     </div>
                     <div className="postTopRight">
-                        <MoreVert />
+                        {userAdmin && !post.isBlocked && <Button
+                            onClick={() => blockHandler(currentUser._id, post._id)}
+                            >Block
+                        </Button>}
+                        {userAdmin && post.isBlocked && <Button
+                            onClick={() => unblockHandler(currentUser._id, post._id)}
+                            >Unblock
+                        </Button>}
                     </div>
                 </div>
                 <div className="postCenter">
