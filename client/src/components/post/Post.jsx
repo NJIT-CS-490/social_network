@@ -11,6 +11,8 @@ export default function Post({ post }) {
     const [like, setLike] = useState(post.likes.length);    
     const [isLiked, setIsLiked] = useState(false);
     const [user, setUser] = useState({});
+    const [comments, setComments] = useState([]);
+    const [commentText, setCommentText] = useState('');
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const {user:currentUser} = useContext(AuthContext);
 
@@ -27,6 +29,11 @@ export default function Post({ post }) {
     fetchUser();
     }, [post.userId]);
 
+    useEffect(async ()=> {
+        const res = await axiosInstance.get("/posts/"+post._id+"/comments")
+        setComments(res.data)
+    }, [])
+
     const likeHandler = ()=>{
         try{
             axiosInstance.put("/posts/"+post._id+"/like",{ userId:currentUser._id })
@@ -36,6 +43,13 @@ export default function Post({ post }) {
         setIsLiked(!isLiked);
     }
 
+    const commentHandler = async () => {
+        try {
+            await axiosInstance.post("/posts/"+post._id+"/comment",{ userId:currentUser._id, text: commentText})
+            const res = await axiosInstance.get("/posts/"+post._id+"/comments")
+            setComments(res.data)
+        } catch(err){}
+    }
 
     return (
         <div className="post">
@@ -85,6 +99,18 @@ export default function Post({ post }) {
                         </span>
                     </div>
                 </div>
+                <div className="commentWrapper">
+                    <input placeholder="Comment" onChange={(event) => { setCommentText(event.target.value); }}></input>
+                    <button onClick={async () => await commentHandler() }>Send</button>
+                </div>
+                {comments.map(c=> {
+                    return <div>
+                        <div className="commentTop">
+                            <p className="commentText">{c.text}</p>
+                        </div>
+                        <div className="commentBottom">{format(c.createdAt)}</div>
+                    </div>
+                    })}
             </div>
         </div>
     )

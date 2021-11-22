@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const Post = require("../models/Post");
 const User = require("../models/User");
+const Comment = require("../models/Comment");
 
 
 //create post
@@ -43,6 +44,41 @@ router.delete("/:id", async (req, res)=>{
     }catch(err){
         res.status(500).json(err);
     }
+});
+
+
+//comment on post
+router.post("/:id/comment", async (req, res) => {
+  try{
+    const user = await User.findById(req.body.userId);
+    const post = await Post.findById(req.params.id);
+
+    const comment = new Comment({
+      by: user,
+      post: post,
+      text: req.body.text,
+    });
+
+    await comment.save();
+
+    res.status(200).json("You have commented on the post");
+  }catch(err){
+    res.status(500).json(err);
+  }
+
+});
+
+//get comment on post
+router.get("/:id/comments", async (req, res) => {
+  try{
+    const post = await Post.findById(req.params.id);
+
+    const comments = await Comment.find({post})
+
+    res.status(200).json(comments);
+  }catch(err){
+    res.status(500).json(err);
+  }
 });
 
 

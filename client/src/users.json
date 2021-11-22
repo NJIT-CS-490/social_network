@@ -1,0 +1,100 @@
+[{
+  "_id": {
+    "$oid": "616d17fca99a5c43bff89e1d"
+  },
+  "username": "Jane",
+  "password": "$2b$10$BkZKdn6yK0q5aG7c/KpShuhgw1Hn8raZbQe05SGaRQi4tAg9ZY5iu",
+  "profilePicture": "person/1.jpeg",
+  "coverPicture": "post/2.jpeg",
+  "team": "New York Mets",
+  "followers": [],
+  "following": [
+    "616d1844a99a5c43bff89e1f"
+  ],
+  "isAdmin": false,
+  "createdAt": {
+    "$date": "2021-10-18T06:45:16.579Z"
+  },
+  "updatedAt": {
+    "$date": "2021-10-21T10:53:51.748Z"
+  },
+  "__v": 0,
+  "city": "Newark",
+  "from": "California"
+},{
+  "_id": {
+    "$oid": "616d1844a99a5c43bff89e1f"
+  },
+  "username": "JaneAdmin",
+  "password": "$2b$10$VIRoXRPNMqLD97sS.txCNeD2YlZv8305WzXhRHc3uOMINC23oZfl2",
+  "profilePicture": "person/3.jpeg",
+  "coverPicture": "",
+  "team": "",
+  "followers": [],
+  "following": [],
+  "isAdmin": true,
+  "createdAt": {
+    "$date": "2021-10-18T06:46:28.155Z"
+  },
+  "updatedAt": {
+    "$date": "2021-10-21T11:05:25.522Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "616d1965a99a5c43bff89e21"
+  },
+  "username": "AdminTest",
+  "password": "$2b$10$euEnOA5gaVwow1ipJC1kue3XmpvHbhSv2Ms8xtzZn7C88gml4DamK",
+  "profilePicture": "",
+  "coverPicture": "",
+  "team": "",
+  "followers": [],
+  "following": [],
+  "isAdmin": false,
+  "createdAt": {
+    "$date": "2021-10-18T06:51:17.777Z"
+  },
+  "updatedAt": {
+    "$date": "2021-10-21T10:53:44.585Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "616db861acfedd0bb9b8de8b"
+  },
+  "username": "ClassAdmin",
+  "password": "$2b$10$Brp9ZzJoxbB2MANkcJBOg.nWPolrE0l4o1VT5eyXTvOoElAHX3gSm",
+  "profilePicture": "",
+  "coverPicture": "",
+  "team": "",
+  "followers": [],
+  "following": [],
+  "isAdmin": false,
+  "createdAt": {
+    "$date": "2021-10-18T18:09:37.517Z"
+  },
+  "updatedAt": {
+    "$date": "2021-10-21T11:05:25.505Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6171a032533f26bd911ba3d8"
+  },
+  "username": "ProfessorThompson",
+  "password": "$2b$10$FQEZhTpwH1kftlUwR5U9ie.1A6m1welnsmmfOq0zpb2pBJ7vqp7bi",
+  "profilePicture": "",
+  "coverPicture": "",
+  "team": "",
+  "followers": [],
+  "following": [],
+  "isAdmin": false,
+  "createdAt": {
+    "$date": "2021-10-21T17:15:30.660Z"
+  },
+  "updatedAt": {
+    "$date": "2021-10-21T17:15:30.660Z"
+  },
+  "__v": 0
+}]
