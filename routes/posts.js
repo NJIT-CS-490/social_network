@@ -50,7 +50,7 @@ router.delete("/:id", async (req, res) => {
 //comment on post
 router.post("/:id/comment", async (req, res) => {
   try{
-    const user = User.findById(req.body.userId);
+    const user = await User.findById(req.body.userId);
     const post = await Post.findById(req.params.id);
 
     const comment = new Comment({
@@ -59,7 +59,7 @@ router.post("/:id/comment", async (req, res) => {
       text: req.body.text,
     });
 
-    comment.save();
+    await comment.save();
 
     res.status(200).json("You have commented on the post");
   }catch(err){
