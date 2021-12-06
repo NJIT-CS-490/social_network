@@ -16,6 +16,14 @@ const PostSchema = new mongoose.Schema({
         type:Array,
         default:[]
     },
+    isBlocked:{
+        type:Boolean,
+        default:false,
+    },
+    comments:{
+        type:Array,
+        default:[]
+    }
 },
 {timestamps: true}
 );
