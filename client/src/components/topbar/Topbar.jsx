@@ -3,6 +3,12 @@ import "./topbar.css"
 import { Search, Person, Chat, Notifications } from "@material-ui/icons"
 import { Link } from "react-router-dom"
 import { AuthContext } from "../../context/AuthContext"
+import PostData from '../../posts.json';
+import UserData from '../../users.json';
+import SearchBar from '../searchBar/SearchBar';
+
+
+const SearchData = [...PostData, ...UserData]
 
 export default function Topbar() {
 
@@ -24,12 +30,10 @@ export default function Topbar() {
             </div>
             <div className="topbarCenter">
                 <div className="searchbar">
-                    <Search className="searchIcon" />
-                    <input type="search" placeholder="Search for friend or post" className="searchInput" />
+                    <SearchBar placeholder="Enter a username or post to search" data={SearchData}/>
                 </div>
             </div>
             <div className="topbarRight">
-                
                 <div className="topbarIcons">
                     <div className="topbarIconItem">
                         <Person />
