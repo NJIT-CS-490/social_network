@@ -3,6 +3,7 @@ import Home  from "./pages/home/Home";
 import Login from "./pages/login/Login"
 import Profile from "./pages/profile/Profile"
 import Messenger from "./pages/messenger/Messenger"
+import CreateUser from "./pages/createUser/CreateUser"
 import {
   BrowserRouter as Router,
   Switch,
@@ -29,6 +30,9 @@ function App() {
         </Route>
         <Route path="/profile/:username">
           <Profile />
+        </Route>
+        <Route path="/createUser">
+          <CreateUser />
         </Route>
       </Switch>
     </Router>

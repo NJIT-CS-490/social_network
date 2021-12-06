@@ -62,6 +62,7 @@ export default function Post({ post }) {
       });
     } catch (err) {}
   };
+
   const commentHandler = async () => {
     try {
       await axiosInstance.post("/posts/" + post._id + "/comment", {

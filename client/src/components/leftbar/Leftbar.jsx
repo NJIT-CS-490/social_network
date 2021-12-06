@@ -21,6 +21,8 @@ export default function Leftbar() {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [users, setUsers] = useState([]);
   const { user } = useContext(AuthContext);
+  const { user: currentUser } = useContext(AuthContext);
+  const userAdmin = currentUser.isAdmin;
 
   useEffect(() => {
     const getUsers = async () => {
@@ -55,7 +57,11 @@ export default function Leftbar() {
             </li>
           </Link>
         </ul>
-        <button className="leftbarButton">Show More</button>
+        {userAdmin && (
+          <Link to="/createUser" className="create_user">
+            Create new user
+          </Link>
+        )}
         <hr className="leftbarHr" />
         <ul className="leftbarFriendList">
           {users.map((user, index) => (
