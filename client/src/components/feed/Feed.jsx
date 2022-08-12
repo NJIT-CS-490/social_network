@@ -1,3 +1,7 @@
+//This file was edited by several members of the team
+// Jefferson worked on the displaying all posts to admin
+// and only unblocked posts to regular users
+
 import { React, useEffect, useState, useContext } from "react";
 import "./feed.css";
 import Share from "../share/Share";

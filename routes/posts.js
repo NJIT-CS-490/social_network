@@ -1,3 +1,6 @@
+// This code was written and maintained by all members of the team
+// Jefferson added code for blocking and unblocking users
+
 const router = require("express").Router();
 const Post = require("../models/Post");
 const User = require("../models/User");
@@ -170,7 +173,7 @@ router.get("/profile/:username", async (req, res) => {
   }
 });
 
-//block posts
+//block posts: Jefferson
 router.post("/:id/:postId/block", async (req, res) => {
   try {
     const user = await User.findById(req.params.id)
@@ -187,7 +190,7 @@ router.post("/:id/:postId/block", async (req, res) => {
   }
 });
 
-//unblock posts
+//unblock posts: Jefferson
 router.post("/:id/:postId/unblock", async (req, res) => {
   try {
     const user = await User.findById(req.params.id)

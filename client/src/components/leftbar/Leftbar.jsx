@@ -1,3 +1,6 @@
+// This code was written and maintained by several members of the team
+// Jefferson worked on create new user link
+
 import React, { useContext, useEffect, useState } from "react";
 import "./leftbar.css";
 import {
@@ -21,6 +24,8 @@ export default function Leftbar() {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [users, setUsers] = useState([]);
   const { user } = useContext(AuthContext);
+  const { user: currentUser } = useContext(AuthContext);
+  const userAdmin = currentUser.isAdmin;
 
   useEffect(() => {
     const getUsers = async () => {
@@ -34,6 +39,7 @@ export default function Leftbar() {
     getUsers();
   }, [user]);
 
+  // Jefferson added the code for the Create new user link
   return (
     <div className="leftbar">
       <div className="leftbarWrapper">
@@ -54,8 +60,15 @@ export default function Leftbar() {
               <span className="leftbarListItemText">Chats</span>
             </li>
           </Link>
+
+          {userAdmin && (
+            <Link to="/createUser" style={{ textDecoration: "none" }}>
+              <li className="leftbarListItem">
+                <span className="leftbarListItemText">Create New User</span>
+              </li>
+            </Link>
+          )}
         </ul>
-        <button className="leftbarButton">Show More</button>
         <hr className="leftbarHr" />
         <ul className="leftbarFriendList">
           {users.map((user, index) => (
